@@ -1,7 +1,7 @@
 import { IsNotEmpty } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
 
-@Entity({ name: 'tb_postagem' }) // indicando que a classe é uma entidades para criar uma tabela no db
+@Entity({ name: 'tb_postagens' }) // indicando que a classe é uma entidades para criar uma tabela no db
 export class Postagem {
 
     @PrimaryGeneratedColumn() // Chave primária e auto incremental 
