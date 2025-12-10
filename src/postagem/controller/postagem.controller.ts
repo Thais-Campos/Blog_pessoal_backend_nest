@@ -1,16 +1,19 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Post, Put, UseGuards } from "@nestjs/common";
 import { PostagemService } from "../services/postagem.services";
 import { Postagem } from "../entities/postagem.entity";
+import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 
+@UseGuards(JwtAuthGuard)     // Colocando essa Anotação aqui, indica que todos os endpoints são protegidos
 @Controller("/postagens") //indica que a classe é uma controller 
 export class PostagemController {
 
+    // Dentro do Construtor injetamos o postagemService para podermos usar seus métodos
     constructor(private readonly postagemService: PostagemService) { }
 
-    @Get()
-    @HttpCode(HttpStatus.OK)
+    @Get()// Indica que esse método lida com Requisições do Tipo GET
+    @HttpCode(HttpStatus.OK) // Monta a Resposta HTTP para o Cliente com o status 200
     findAll(): Promise<Postagem[]> {
-        return this.postagemService.findAll();
+        return this.postagemService.findAll();// Invoca a Service e chama o método correspondente
     }
 
     @Get('/:id')
