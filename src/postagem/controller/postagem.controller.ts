@@ -2,9 +2,11 @@ import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPip
 import { PostagemService } from "../services/postagem.services";
 import { Postagem } from "../entities/postagem.entity";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
-
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+@ApiTags('Postagem')
 @UseGuards(JwtAuthGuard)     // Colocando essa Anotação aqui, indica que todos os endpoints são protegidos
 @Controller("/postagens") //indica que a classe é uma controller 
+@ApiBearerAuth()
 export class PostagemController {
 
     // Dentro do Construtor injetamos o postagemService para podermos usar seus métodos
