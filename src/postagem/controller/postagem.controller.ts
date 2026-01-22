@@ -3,6 +3,7 @@ import { PostagemService } from "../services/postagem.services";
 import { Postagem } from "../entities/postagem.entity";
 import { JwtAuthGuard } from "../../auth/guard/jwt-auth.guard";
 import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
+import { DeleteResult } from "typeorm";
 @ApiTags('Postagem')
 @UseGuards(JwtAuthGuard)     // Colocando essa Anotação aqui, indica que todos os endpoints são protegidos
 @Controller("/postagens") //indica que a classe é uma controller 
@@ -42,9 +43,9 @@ export class PostagemController {
         return this.postagemService.update(postagem);
     }
 
-    @Delete()
+    @Delete('/:id')
     @HttpCode(HttpStatus.NO_CONTENT)
-    delete(@Param('id', ParseIntPipe) id: number) {
+    delete(@Param('id', ParseIntPipe) id: number): Promise<DeleteResult> {
         return this.postagemService.delete(id);
     }
 }
